@@ -1,9 +1,11 @@
-import * as React from 'react';
+import * as React from "react";
 import { useState, useRef, useEffect } from "react";
 import { Fireworks } from "@fireworks-js/react";
+import { NoEncryption } from "@mui/icons-material";
 
 function FireWorks(props) {
   const ref = useRef(null);
+  const [sound, setSound] = useState(false);
 
   const initOptions = {
     initialStart: true,
@@ -54,15 +56,15 @@ function FireWorks(props) {
       lineWidth: {
         explosion: {
           min: 1,
-          max: 10
+          max: 10,
         },
         trace: {
           min: 0.1,
-          max: 1
-        }
+          max: 1,
+        },
       },
       sound: {
-        enabled: true,
+        enabled: sound,
         files: [
           "https://fireworks.js.org/sounds/explosion0.mp3",
           "https://fireworks.js.org/sounds/explosion1.mp3",
@@ -76,6 +78,20 @@ function FireWorks(props) {
       mouse: {
         click: true,
         max: 1,
+      },
+    });
+  };
+
+  const toggleSound = (e) => {
+    if (e.key === "m") {
+      setSound((prevState) => {
+        return !prevState;
+      });
+    }
+
+    ref.current.updateOptions({
+      sound: {
+        enabled: !sound,
       },
     });
   };
@@ -97,11 +113,12 @@ function FireWorks(props) {
     height: "100%",
     position: "fixed",
     background: "#000",
+    outline: "none"
   };
 
   return (
     <>
-      <Fireworks ref={ref} options={initOptions} style={style} />
+      <Fireworks ref={ref} options={initOptions} style={style} onKeyDown={toggleSound} autoFocus={true} tabIndex="0"/>
     </>
   );
 }
