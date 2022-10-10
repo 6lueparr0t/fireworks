@@ -4,4 +4,5 @@
 
 ## How to Use
 - 사이트 주소 : [https://nextjs-fireworks.vercel.app](https://nextjs-fireworks.vercel.app/)
-- m : 음소거 토글
+- s : 재생/멈춤 토글
+- m, mouse-click : 음소거 토글

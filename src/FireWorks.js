@@ -83,22 +83,22 @@ function FireWorks(props) {
   };
 
   const toggleSound = (e) => {
-    if (e.key === "m") {
+    if (e.key === "s") {
+      ref.current.isRunning ? ref.current.stop() : ref.current.start();
+    }
+
+    if (e.type === "click" || e.key === "m") {
       setSound((prevState) => {
         return !prevState;
       });
+
+      ref.current.updateOptions({
+        sound: {
+          enabled: !sound,
+        },
+      });
     }
-
-    ref.current.updateOptions({
-      sound: {
-        enabled: !sound,
-      },
-    });
   };
-
-  // const toggleStart = () => {
-  //   ref.current.isRunning ? ref.current.stop() : ref.current.start();
-  // };
 
   useEffect(() => {
     startOption();
@@ -118,7 +118,7 @@ function FireWorks(props) {
 
   return (
     <>
-      <Fireworks ref={ref} options={initOptions} style={style} onKeyDown={toggleSound} autoFocus={true} tabIndex="0"/>
+      <Fireworks ref={ref} options={initOptions} style={style} onClick={toggleSound} onKeyDown={toggleSound} autoFocus={true} tabIndex="0"/>
     </>
   );
 }
